@@ -1,0 +1,229 @@
+{
+    "name": "appian-expression-formatter-and-syntax-highlighter",
+    "displayName": "Appian Expression Formatter and Syntax Highlighter",
+    "description": "Format and Highlight Appian Expressions",
+    "version": "0.0.3",
+    "engines": {
+        "vscode": "^1.60.0"
+    },
+    "categories": [
+        "Formatters",
+        "Programming Languages",
+        "Themes"
+    ],
+    "activationEvents": [
+        "onLanguage:sail"
+    ],
+    "main": "./extension.js",
+    "contributes": {
+        "languages": [
+            {
+                "id": "sail",
+                "aliases": [
+                    "SAIL",
+                    "sail"
+                ],
+                "extensions": [
+                    ".sail"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "sail",
+                "scopeName": "source.sail",
+                "path": "./syntaxes/sail.tmLanguage.json"
+            }
+        ],
+        "themes": [
+            {
+                "label": "SAIL Expression Editor - Light",
+                "uiTheme": "vs",
+                "path": "./themes/sail-theme-light.json"
+            },
+            {
+                "label": "SAIL Expression Editor - Dark",
+                "uiTheme": "vs",
+                "path": "./themes/sail-theme-dark.json"
+            }
+        ],
+        "configurationDefaults": {
+            "[sail]": {
+                "editor.semanticHighlighting.enabled": false,
+                "editor.tokenColorCustomizations": {
+                    "textMateRules": [
+                        {
+                            "scope": "comment",
+                            "settings": {
+                                "foreground": "#6cb636"
+                            }
+                        },
+                        {
+                            "scope": "variable.parameter.function",
+                            "settings": {
+                                "foreground": "#999999"
+                            }
+                        },
+                        {
+                            "scope": "keyword.operator",
+                            "settings": {
+                                "foreground": "#3f3f3f"
+                            }
+                        },
+                        {
+                            "scope": "keyword",
+                            "settings": {
+                                "foreground": "#1c5cc9"
+                            }
+                        },
+                        {
+                            "scope": [
+                                "variable",
+                                "variable.other"
+                            ],
+                            "settings": {
+                                "foreground": "#50aee7"
+                            }
+                        },
+                        {
+                            "scope": "entity.name.function.rule",
+                            "settings": {
+                                "foreground": "#f18742"
+                            }
+                        },
+                        {
+                            "scope": [
+                                "entity.name.function.appian",
+                                "entity.name.function.generic"
+                            ],
+                            "settings": {
+                                "foreground": "#f18742"
+                            }
+                        },
+                        {
+                            "scope": [
+                                "support.class",
+                                "meta.class"
+                            ],
+                            "settings": {
+                                "foreground": "#f18742"
+                            }
+                        },
+                        {
+                            "scope": "keyword.other.special-method",
+                            "settings": {
+                                "foreground": "#61afef"
+                            }
+                        },
+                        {
+                            "scope": "string",
+                            "settings": {
+                                "foreground": "#8c6dc3"
+                            }
+                        },
+                        {
+                            "scope": "constant.numeric",
+                            "settings": {
+                                "foreground": "#1c5cc9"
+                            }
+                        },
+                        {
+                            "scope": "invalid.deprecated",
+                            "settings": {
+                                "background": "#feb9b9",
+                                "foreground": "#1c5cc9"
+                            }
+                        }
+                    ],
+                    "[*Dark*]": [
+                        [
+                            {
+                                "scope": "comment",
+                                "settings": {
+                                    "foreground": "#6cb636"
+                                }
+                            },
+                            {
+                                "scope": "variable.parameter.function",
+                                "settings": {
+                                    "foreground": "#999999"
+                                }
+                            },
+                            {
+                                "scope": "keyword.operator",
+                                "settings": {
+                                    "foreground": "#3f3f3f"
+                                }
+                            },
+                            {
+                                "scope": "keyword",
+                                "settings": {
+                                    "foreground": "#1c5cc9"
+                                }
+                            },
+                            {
+                                "scope": [
+                                    "variable",
+                                    "variable.other"
+                                ],
+                                "settings": {
+                                    "foreground": "#50aee7"
+                                }
+                            },
+                            {
+                                "scope": "entity.name.function.rule",
+                                "settings": {
+                                    "foreground": "#f18742"
+                                }
+                            },
+                            {
+                                "scope": [
+                                    "entity.name.function.appian",
+                                    "entity.name.function.generic"
+                                ],
+                                "settings": {
+                                    "foreground": "#255ac9"
+                                }
+                            },
+                            {
+                                "scope": [
+                                    "support.class",
+                                    "meta.class"
+                                ],
+                                "settings": {
+                                    "foreground": "#f18742"
+                                }
+                            },
+                            {
+                                "scope": "keyword.other.special-method",
+                                "settings": {
+                                    "foreground": "#61afef"
+                                }
+                            },
+                            {
+                                "scope": "string",
+                                "settings": {
+                                    "foreground": "#8c6dc3"
+                                }
+                            },
+                            {
+                                "scope": "constant.numeric",
+                                "settings": {
+                                    "foreground": "#1c5cc9"
+                                }
+                            },
+                            {
+                                "scope": "invalid.deprecated",
+                                "settings": {
+                                    "background": "#feb9b9",
+                                    "foreground": "#1c5cc9"
+                                }
+                            }
+                        ]
+                    ]
+                }
+            }
+        }
+    }
+}

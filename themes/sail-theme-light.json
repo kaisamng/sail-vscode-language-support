@@ -1,0 +1,110 @@
+{
+    "name": "Appian Expression Editor",
+    "type": "light",
+    "colors": {
+        "editor.background": "#ffffff",
+        "editor.foreground": "#3f3f3f",
+        "editor.lineHighlightBackground": "#eef3f7",
+        "editor.selectionBackground": "#d6d4ee",
+        "editorCursor.foreground": "#3f3f3f",
+        "editorBracketMatch.foreground": "#84df44",
+        "editorGutter.background": "#f0f0f0",
+        "editorGutter.foreground": "#3f3f3f"
+    },
+    "tokenColors": [
+        {
+            "name": "Comments",
+            "scope": "comment",
+            "settings": {
+                "foreground": "#6cb636"
+            }
+        },
+        {
+            "name": "Text (Parameters)",
+            "scope": "variable.parameter.function",
+            "settings": {
+                "foreground": "#999999"
+            }
+        },
+        {
+            "name": "Operators",
+            "scope": "keyword.operator",
+            "settings": {
+                "foreground": "#3f3f3f"
+            }
+        },
+        {
+            "name": "Keywords",
+            "scope": "keyword",
+            "settings": {
+                "foreground": "#1c5cc9"
+            }
+        },
+        {
+            "name": "Variables",
+            "scope": [
+                "variable",
+                "variable.other"
+            ],
+            "settings": {
+                "foreground": "#50aee7"
+            }
+        },
+        {
+            "name": "Expression Rules",
+            "scope": "entity.name.function.rule",
+            "settings": {
+                "foreground": "#f18742"
+            }
+        },
+        {
+            "name": "Functions",
+            "scope": [
+                "entity.name.function.appian",
+                "entity.name.function.generic"
+            ],
+            "settings": {
+                "foreground": "#255ac9"
+            }
+        },
+        {
+            "name": "Constants",
+            "scope": [
+                "support.class",
+                "meta.class"
+            ],
+            "settings": {
+                "foreground": "#f18742"
+            }
+        },
+        {
+            "name": "Methods",
+            "scope": "keyword.other.special-method",
+            "settings": {
+                "foreground": "#61afef"
+            }
+        },
+        {
+            "name": "Strings",
+            "scope": "string",
+            "settings": {
+                "foreground": "#8c6dc3"
+            }
+        },
+        {
+            "name": "Integers",
+            "scope": "constant.numeric",
+            "settings": {
+                "foreground": "#1c5cc9"
+            }
+        },
+        {
+            "name": "Deprecated",
+            "scope": "invalid.deprecated",
+            "settings": {
+                "background": "#feb9b9",
+                "foreground": "#1c5cc9"
+            }
+        }
+    ]
+}

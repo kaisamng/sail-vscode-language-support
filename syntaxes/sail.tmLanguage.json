@@ -1,0 +1,121 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "Appian SAIL",
+    "patterns": [
+        {
+            "include": "#comments"
+        },
+        {
+            "include": "#strings"
+        },
+        {
+            "include": "#parameters"
+        },
+        {
+            "include": "#domains"
+        },
+        {
+            "include": "#functions"
+        },
+        {
+            "include": "#constants"
+        },
+        {
+            "include": "#keywords"
+        },
+        {
+            "include": "#operators"
+        }
+    ],
+    "repository": {
+        "comments": {
+            "patterns": [
+                {
+                    "name": "comment.line.double-slash.sail",
+                    "match": "//.*$"
+                },
+                {
+                    "name": "comment.block.sail",
+                    "begin": "/\\*",
+                    "end": "\\*/"
+                }
+            ]
+        },
+        "strings": {
+            "name": "string.quoted.double.sail",
+            "begin": "\"",
+            "end": "\"",
+            "patterns": [
+                {
+                    "name": "constant.character.escape.sail",
+                    "match": "\\\\."
+                }
+            ]
+        },
+        "parameters": {
+            "patterns": [
+                {
+                    "match": "\\b([a-zA-Z0-9_]+)(?=\\s*:)",
+                    "name": "variable.parameter.function.sail"
+                }
+            ]
+        },
+        "domains": {
+            "patterns": [
+                {
+                    "name": "variable.other.sail",
+                    "match": "\\b(ri|local|fv|rf|pp|pv|ac|save)!([a-zA-Z0-9_]+)"
+                }
+            ]
+        },
+        "functions": {
+            "patterns": [
+                {
+                    "name": "entity.name.function.generic",
+                    "match": "(?<![a-zA-Z0-9_]!)([a-zA-Z]+)(?=\\()"
+                },
+                {
+                    "name": "entity.name.function.appian",
+                    "match": "\\b(a|fn)!([a-zA-Z0-9_]*)"
+                },
+                {
+                    "name": "entity.name.function.rule",
+                    "match": "\\b(rule)!([a-zA-Z0-9_]*)"
+                }
+            ]
+        },
+        "constants": {
+            "patterns": [
+                {
+                    "name": "support.class.sail",
+                    "match": "\\bcons!([a-zA-Z0-9_]+)"
+                },
+                {
+                    "name": "constant.numeric.sail",
+                    "match": "\\b[0-9]+(\\.[0-9]+)?\\b"
+                }
+            ]
+        },
+        "keywords": {
+            "patterns": [
+                {
+                    "name": "constant.language.boolean.sail",
+                    "match": "\\b(true|false|null)\\b"
+                },
+                {
+                    "name": "keyword.control.sail",
+                    "match": "\\b(if|foreach|and|or|not)\\b"
+                }
+            ]
+        },
+        "operators": {
+            "patterns": [
+                {
+                    "name": "keyword.operator.sail",
+                    "match": "(=|:|\\+|-|\\*|/|<|>|&)"
+                }
+            ]
+        }
+    },
+    "scopeName": "source.sail"
+}
