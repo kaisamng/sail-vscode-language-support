@@ -1,0 +1,40 @@
+name: Release Extension
+
+on:
+  push:
+    tags:
+      - "v*" # Trigger the workflow on tags like v0.0.3, v1.0.0, etc.
+
+permissions:
+  contents: write # Required to create releases
+
+jobs:
+  build:
+    name: Create Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Package Extension
+        # Uses npx to run vsce without installing it globally
+        run: npx @vscode/vsce package
+
+      - name: Create Release & Upload Asset
+        uses: softprops/action-gh-release@v1
+        with:
+          files: "*.vsix" # Uploads the generated .vsix file
+          generate_release_notes: true # Auto-generates notes from commit messages
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
