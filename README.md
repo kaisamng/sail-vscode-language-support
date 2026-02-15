@@ -20,4 +20,5 @@ The typical Appian Developer has 50 browser tabs and 5 browser windows open. Som
 
 ## To Do
 - Add formatting logic to pillbox other literal object references like Sites, Portals, Translation Strings, etc.
-- Add TextMate formatting to 
+- Make the pillbox prettier, margins are kinda ugly right now
+- Refactor extension.js code, consider removing hardcoded regex group extraction (to accomodate all you crazy devs that go 4 record relationships deep)
