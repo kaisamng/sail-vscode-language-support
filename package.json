@@ -6,7 +6,7 @@
     "engines": {
         "vscode": "^1.60.0"
     },
-    "publisher": "Kai Sam Ng",
+    "publisher": "kaisamng",
     "repository": {
         "type": "git",
         "url": "https://github.com/kaisamng/sail-vscode-language-support"
