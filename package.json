@@ -2,7 +2,7 @@
     "name": "appian-expression-formatter-and-syntax-highlighter",
     "displayName": "Appian Expression Formatter and Syntax Highlighter",
     "description": "Format and Highlight Appian Expressions",
-    "version": "0.0.5",
+    "version": "0.0.7",
     "engines": {
         "vscode": "^1.60.0"
     },

@@ -14,6 +14,12 @@ The typical Appian Developer has 50 browser tabs and 5 browser windows open. Som
 - Pillbox highlights around literal Appian Object references like Record Types (record types and site objects for now, more planned for future). UUIDs are still available but de-emphasized, and indexed fields/relationships/site pages/etc. are bolded for easy developer reference. 
 ![Pillbox Example](images/pillbox-example.png)
 
+## Installing
+Install this from the VSIX file provided from the releases page until this is uploaded to the extensions marketplace.
+1. Download the extension from the Releases page. 
+2. Open Visual Studio Code's Sidebar > Extensions > Three Dots on the Top Right
+3. Select "Install from VSIX" file and select the file
+
 ## Known Issues
 - Inside a pillbox, there is a faint dividing line between icons and code. This is due to a limitation with VS Code's text decoration API that only allows for a limited subset of CSS properties. 
 - You must manually select the programming language as SAIL. Formatting doesn't automatically apply until you start typing something in the code editor. 

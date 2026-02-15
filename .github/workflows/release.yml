@@ -3,10 +3,10 @@ name: Release Extension
 on:
   push:
     tags:
-      - "v*" # Trigger the workflow on tags like v0.0.3, v1.0.0, etc.
+      - "v*" # Trigger the workflow on git tag
 
 permissions:
-  contents: write # Required to create releases
+  contents: write
 
 jobs:
   build:
@@ -26,14 +26,13 @@ jobs:
         run: npm install
 
       - name: Package Extension
-        # Uses npx to run vsce without installing it globally
         run: npx @vscode/vsce package
 
       - name: Create Release & Upload Asset
         uses: softprops/action-gh-release@v1
         with:
-          files: "*.vsix" # Uploads the generated .vsix file
-          generate_release_notes: true # Auto-generates notes from commit messages
+          files: "*.vsix"
+          generate_release_notes: true
           draft: false
           prerelease: false
         env:

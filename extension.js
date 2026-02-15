@@ -1,13 +1,10 @@
 const vscode = require('vscode');
 
-/**
- * Constants and Configuration
- */
 const CONSTANTS = {
     ICON_DATA_TABLE: "PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAtOTYwIDk2MCA5NjAiIHdpZHRoPSIyNHB4IiBmaWxsPSIjRkZGRkZGIj48cGF0aCBkPSJNMjAwLTEyMHEtMzMgMC01Ni41LTIzLjVUMTIwLTIwMHYtNTYwcTAtMzMgMjMuNS01Ni41VDIwMC04NDBoNTYwcTMzIDAgNTYuNSAyMy41VDg0MC03NjB2NTYwcTAgMzMtMjMuNSA1Ni41VDc2MC0xMjBIMjAwWm0wLTUwN2g1NjB2LTEzM0gyMDB2MTMzWm0wIDIxNGg1NjB2LTEzNEgyMDB2MTM0Wm0wIDIxM2g1NjB2LTEzM0gyMDB2MTMzWm00MC00NTR2LTgwaDgwdjgwaC04MFptMCAyMTR2LTgwaDgwdjgwaC04MFptMCAyMTR2LTgwaDgwdjgwaC04MFoiLz48L3N2Zz4=",
     ICON_WEB: "PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAtOTYwIDk2MCA5NjAiIHdpZHRoPSIyNHB4IiBmaWxsPSIjRkZGRkZGIj48cGF0aCBkPSJNMTYwLTE2MHEtMzMgMC01Ni41LTIzLjVUODAtMjQwdi00ODBxMC0zMyAyMy41LTU2LjVUMTYwLTgwMGg2NDBxMzMgMCA1Ni41IDIzLjVUODgwLTcyMHY0ODBxMCAzMy0yMy41IDU2LjVUODAwLTE2MEgxNjBabTAtODBoNDIwdi0xNDBIMTYwdjE0MFptNTAwIDBoMTQwdi0zNjBINjYwdjM2MFpNMTYwLTQ2MGg0MjB2LTE0MEgxNjB2MTQwWiIvPjwvc3ZnPg==",
-    RECORD_PILL_BG: 'rgba(255, 136, 0, 0.56)',
-    SITE_PILL_BG: 'rgba(102, 102, 246, 0.80)',
+    RECORD_PILL_BG: 'rgba(255, 136, 0, 0.6)',
+    SITE_PILL_BG: 'rgba(102, 102, 246, 0.7)',
     PILLBORDER_BG: '1px solid rgba(128, 128, 128, 0.2)',
     ICON_HEIGHT_WIDTH: '1.5em',
     DEBOUNCE_MS: 250,
@@ -41,7 +38,7 @@ const sitePillDecorationType = vscode.window.createTextEditorDecorationType({
 });
 
 const faintDecorationType = vscode.window.createTextEditorDecorationType({
-    opacity: '0.25',
+    opacity: '0.35',
     letterSpacing: '-2.5px'
 });
 
