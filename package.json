@@ -2,9 +2,14 @@
     "name": "appian-expression-formatter-and-syntax-highlighter",
     "displayName": "Appian Expression Formatter and Syntax Highlighter",
     "description": "Format and Highlight Appian Expressions",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "engines": {
         "vscode": "^1.60.0"
+    },
+    "publisher": "Kai Sam Ng",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/kaisamng/sail-vscode-language-support"
     },
     "categories": [
         "Formatters",

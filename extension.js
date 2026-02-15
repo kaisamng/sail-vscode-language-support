@@ -1,160 +1,186 @@
 const vscode = require('vscode');
 
-const dataTable_Icon64 = "PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAtOTYwIDk2MCA5NjAiIHdpZHRoPSIyNHB4IiBmaWxsPSIjRkZGRkZGIj48cGF0aCBkPSJNMjAwLTEyMHEtMzMgMC01Ni41LTIzLjVUMTIwLTIwMHYtNTYwcTAtMzMgMjMuNS01Ni41VDIwMC04NDBoNTYwcTMzIDAgNTYuNSAyMy41VDg0MC03NjB2NTYwcTAgMzMtMjMuNSA1Ni41VDc2MC0xMjBIMjAwWm0wLTUwN2g1NjB2LTEzM0gyMDB2MTMzWm0wIDIxNGg1NjB2LTEzNEgyMDB2MTM0Wm0wIDIxM2g1NjB2LTEzM0gyMDB2MTMzWm00MC00NTR2LTgwaDgwdjgwaC04MFptMCAyMTR2LTgwaDgwdjgwaC04MFptMCAyMTR2LTgwaDgwdjgwaC04MFoiLz48L3N2Zz4=";
+/**
+ * Constants and Configuration
+ */
+const CONSTANTS = {
+    ICON_DATA_TABLE: "PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAtOTYwIDk2MCA5NjAiIHdpZHRoPSIyNHB4IiBmaWxsPSIjRkZGRkZGIj48cGF0aCBkPSJNMjAwLTEyMHEtMzMgMC01Ni41LTIzLjVUMTIwLTIwMHYtNTYwcTAtMzMgMjMuNS01Ni41VDIwMC04NDBoNTYwcTMzIDAgNTYuNSAyMy41VDg0MC03NjB2NTYwcTAgMzMtMjMuNSA1Ni41VDc2MC0xMjBIMjAwWm0wLTUwN2g1NjB2LTEzM0gyMDB2MTMzWm0wIDIxNGg1NjB2LTEzNEgyMDB2MTM0Wm0wIDIxM2g1NjB2LTEzM0gyMDB2MTMzWm00MC00NTR2LTgwaDgwdjgwaC04MFptMCAyMTR2LTgwaDgwdjgwaC04MFptMCAyMTR2LTgwaDgwdjgwaC04MFoiLz48L3N2Zz4=",
+    ICON_WEB: "PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAtOTYwIDk2MCA5NjAiIHdpZHRoPSIyNHB4IiBmaWxsPSIjRkZGRkZGIj48cGF0aCBkPSJNMTYwLTE2MHEtMzMgMC01Ni41LTIzLjVUODAtMjQwdi00ODBxMC0zMyAyMy41LTU2LjVUMTYwLTgwMGg2NDBxMzMgMCA1Ni41IDIzLjVUODgwLTcyMHY0ODBxMCAzMy0yMy41IDU2LjVUODAwLTE2MEgxNjBabTAtODBoNDIwdi0xNDBIMTYwdjE0MFptNTAwIDBoMTQwdi0zNjBINjYwdjM2MFpNMTYwLTQ2MGg0MjB2LTE0MEgxNjB2MTQwWiIvPjwvc3ZnPg==",
+    RECORD_PILL_BG: 'rgba(255, 136, 0, 0.56)',
+    SITE_PILL_BG: 'rgba(102, 102, 246, 0.80)',
+    PILLBORDER_BG: '1px solid rgba(128, 128, 128, 0.2)',
+    ICON_HEIGHT_WIDTH: '1.5em',
+    DEBOUNCE_MS: 250,
+    INDENT_STR: "  "
+};
+
 // --- Decoration Types ---
 
-// 1. The Container (The "Pill")
-const pillDecorationType = vscode.window.createTextEditorDecorationType({
-    backgroundColor: 'rgba(255, 136, 0, 0.56)', // Subtle grey background
-    border: '1px solid rgba(128, 128, 128, 0.2)',
-    borderLeft: 'none',             // Remove left border (Icon covers this)
-    borderRadius: '0px 4px 4px 0px', // Round only the right side
-    isWholeLine: false,
+const recordPillDecorationType = vscode.window.createTextEditorDecorationType({
+    backgroundColor: CONSTANTS.RECORD_PILL_BG,
+    border: CONSTANTS.PILLBORDER_BG,
     before: {
-        // This parses the Base64 string into a usable icon URI
-        contentIconPath: vscode.Uri.parse(`data:image/svg+xml;base64,${dataTable_Icon64}`),
-
-        // Apply Background/Border to the ICON too, so it looks like part of the box
-        backgroundColor: 'rgba(255, 136, 0, 0.56)',
-        border: '1px solid rgba(128, 128, 128, 0.2)',
-        color: 'rgb(255, 255, 255)',
-        // borderRight: 'none',             // Remove right border (Text covers this)
-        borderRadius: '4px 0px 0px 4px', // Round only the left side
-        width: '1.5em',
-        height: '1.5em',
-        // margin: '0 4px -4px 4px', // Tweak margins to line up with text
-        verticalAlign: 'middle'   // Fixes the vertical alignment issue
+        contentIconPath: vscode.Uri.parse(`data:image/svg+xml;base64,${CONSTANTS.ICON_DATA_TABLE}`),
+        backgroundColor: CONSTANTS.RECORD_PILL_BG,
+        border: CONSTANTS.PILLBORDER_BG,
+        width: CONSTANTS.ICON_HEIGHT_WIDTH,
+        height: CONSTANTS.ICON_HEIGHT_WIDTH
     }
 });
 
+const sitePillDecorationType = vscode.window.createTextEditorDecorationType({
+    backgroundColor: CONSTANTS.SITE_PILL_BG,
+    border: CONSTANTS.PILLBORDER_BG,
+    before: {
+        contentIconPath: vscode.Uri.parse(`data:image/svg+xml;base64,${CONSTANTS.ICON_WEB}`),
+        backgroundColor: CONSTANTS.SITE_PILL_BG,
+        border: CONSTANTS.PILLBORDER_BG,
+        width: CONSTANTS.ICON_HEIGHT_WIDTH,
+        height: CONSTANTS.ICON_HEIGHT_WIDTH
+    }
+});
 
-// 2. The "Ghost" Text (Hiding the UUIDs)
 const faintDecorationType = vscode.window.createTextEditorDecorationType({
-    opacity: '0.25', // Make UUIDs very faint
-    letterSpacing: '-2.5px' // Optional: squish them slightly
+    opacity: '0.25',
+    letterSpacing: '-2.5px'
 });
 
-// 3. The Highlight (Making names readable)
 const boldDecorationType = vscode.window.createTextEditorDecorationType({
-    fontWeight: 'bold',
-    color: '', // Leave empty to inherit syntax highlighting color, or set specific color
+    fontWeight: 'bold'
 });
 
-
+/**
+ * Main Extension Logic
+ */
 function activate(context) {
     console.log('SAIL Formatter & Visualizer Active');
 
-    // 1. Register Formatter
-    vscode.languages.registerDocumentFormattingEditProvider('sail', {
+    // 1. Formatter Registration
+    const formatter = vscode.languages.registerDocumentFormattingEditProvider('sail', {
         provideDocumentFormattingEdits(document) {
-            const text = document.getText();
-            const formatted = formatSAIL(text);
             const fullRange = new vscode.Range(
                 document.positionAt(0),
-                document.positionAt(text.length)
+                document.positionAt(document.getText().length)
             );
-            return [vscode.TextEdit.replace(fullRange, formatted)];
+            return [vscode.TextEdit.replace(fullRange, formatSAIL(document.getText()))];
         }
     });
 
-    // 2. Register Visualizer (Decorations)
+    // 2. Visualizer Logic
     let activeEditor = vscode.window.activeTextEditor;
+    let timeout = undefined;
+
+    function triggerUpdateDecorations() {
+        if (timeout) {
+            clearTimeout(timeout);
+            timeout = undefined;
+        }
+        timeout = setTimeout(updateDecorations, CONSTANTS.DEBOUNCE_MS);
+    }
 
     function updateDecorations() {
-        if (!activeEditor) return;
+        if (!activeEditor || activeEditor.document.languageId !== 'sail') return;
+
         const text = activeEditor.document.getText();
 
-        const pills = [];
+        // Distinct arrays for different pill types
+        const recordRanges = [];
+        const siteRanges = [];
+
         const faints = [];
         const bolds = [];
 
-        // Regex to find: 'domain!{uuid}Name.fields.{uuid}FieldName'
-        // Group 1: 'domain! (includes leading quote for correct offset calculation)
-        // Group 2: {uuid}
-        // Group 3: Name (matches until it hits .fields. or ')
-        // Group 4: Field UUID (optional)
-        // Group 5: Field Name (optional)
-        const regEx = /('\w+!)(\{[0-9a-fA-F-]+\})((?:(?!\.fields\.|').)+)(?:\.fields\.(\{[0-9a-fA-F-]+\})([^']+))?'/g;
+        /**
+ * Generic Regex for RecordTypes and Sites
+ * Group 1: Matches 'recordType! or 'site!
+ * Group 2: Matches the entire content inside the quotes
+ */
+        const mainRegEx = /('(?:recordType|site)!)((?:(?!').)+)'/g;
 
         let match;
-        while ((match = regEx.exec(text))) {
-            const matchStart = match.index;
-            const matchEnd = matchStart + match[0].length;
+        while ((match = mainRegEx.exec(text))) {
+            const doc = activeEditor.document;
+            const fullMatchStart = match.index;
+            const fullMatchEnd = fullMatchStart + match[0].length;
 
-            // 1. Create the Pill Container
-            pills.push({ range: new vscode.Range(activeEditor.document.positionAt(matchStart), activeEditor.document.positionAt(matchEnd)) });
+            const domainPrefix = match[1]; // e.g., 'recordType! or 'site!
+            const contentStart = fullMatchStart + match[1].length;
+            const contentStr = match[2];
 
-            // 2. Hide the Main UUID (Group 2)
-            const uuidStart = matchStart + match[1].length;
-            const uuidEnd = uuidStart + match[2].length;
-            faints.push({ range: new vscode.Range(activeEditor.document.positionAt(uuidStart), activeEditor.document.positionAt(uuidEnd)) });
+            const range = new vscode.Range(doc.positionAt(fullMatchStart), doc.positionAt(fullMatchEnd));
 
-            // 3. Bold the Main Name (Group 3)
-            const nameStart = uuidEnd;
-            const nameEnd = nameStart + match[3].length;
-            bolds.push({ range: new vscode.Range(activeEditor.document.positionAt(nameStart), activeEditor.document.positionAt(nameEnd)) });
+            // 1. Determine which pill decoration to apply
+            if (domainPrefix === "'recordType!") {
+                recordRanges.push({ range });
+            } else if (domainPrefix === "'site!") {
+                siteRanges.push({ range });
+            }
 
-            // 4. Handle Optional Field Reference
-            if (match[4]) {
-                // The literal string ".fields." is 8 chars long.
-                // It sits between Main Name and Field UUID.
+            /**
+             * Internal Scanner
+             * Scans contentStr for UUIDs {uuid} and treats everything else as boldable text.
+             */
+            const internalRegex = /(\{[0-9a-fA-F-]+\})|([^{]+)/g;
+            let subMatch;
+            while ((subMatch = internalRegex.exec(contentStr))) {
+                const subStart = contentStart + subMatch.index;
+                const subEnd = subStart + subMatch[0].length;
+                const subRange = new vscode.Range(doc.positionAt(subStart), doc.positionAt(subEnd));
 
-                // Start of Field UUID (Group 4)
-                // Calculation: matchStart + G1 + G2 + G3 + ".fields."
-                const fieldUuidOffset = nameEnd + 8;
-                const fieldUuidEnd = fieldUuidOffset + match[4].length;
-                faints.push({ range: new vscode.Range(activeEditor.document.positionAt(fieldUuidOffset), activeEditor.document.positionAt(fieldUuidEnd)) });
-
-                // Start of Field Name (Group 5)
-                const fieldNameStart = fieldUuidEnd;
-                const fieldNameEnd = fieldNameStart + match[5].length;
-                bolds.push({ range: new vscode.Range(activeEditor.document.positionAt(fieldNameStart), activeEditor.document.positionAt(fieldNameEnd)) });
+                if (subMatch[1]) {
+                    // It's a UUID: Make it faint
+                    faints.push({ range: subRange });
+                } else if (subMatch[2]) {
+                    // It's readable text (domain, name, .fields., etc): Bold it
+                    bolds.push({ range: subRange });
+                }
             }
         }
 
-        activeEditor.setDecorations(pillDecorationType, pills);
+        // Apply decorations
+        activeEditor.setDecorations(recordPillDecorationType, recordRanges);
+        activeEditor.setDecorations(sitePillDecorationType, siteRanges);
         activeEditor.setDecorations(faintDecorationType, faints);
         activeEditor.setDecorations(boldDecorationType, bolds);
     }
 
-    // Trigger updates
-    if (activeEditor) updateDecorations();
+    // --- Event Listeners ---
+    if (activeEditor) triggerUpdateDecorations();
 
-    // Update when switching tabs
-    vscode.window.onDidChangeActiveTextEditor(editor => {
-        activeEditor = editor;
-        if (editor) updateDecorations();
-    }, null, context.subscriptions);
-
-    // Update when typing
-    vscode.workspace.onDidChangeTextDocument(event => {
-        if (activeEditor && event.document === activeEditor.document) {
-            updateDecorations();
-        }
-    }, null, context.subscriptions);
+    context.subscriptions.push(
+        formatter,
+        vscode.window.onDidChangeActiveTextEditor(editor => {
+            activeEditor = editor;
+            if (editor) triggerUpdateDecorations();
+        }),
+        vscode.workspace.onDidChangeTextDocument(event => {
+            if (activeEditor && event.document === activeEditor.document) {
+                triggerUpdateDecorations();
+            }
+        })
+    );
 }
 
-// --- Formatter Logic ---
+/**
+ * SAIL Formatter Implementation
+ */
 function formatSAIL(code) {
     let output = "";
     let indentLevel = 0;
-    const indentStr = "  ";
     let i = 0;
-    const len = code.length;
     let state = "normal";
-    let quoteChar = ""; // NEW: Tracks if we are inside ' or ", since single quotes are used for literal object refs
+    let quoteChar = "";
 
-    const addIndent = () => "\n" + indentStr.repeat(indentLevel);
-    const trimLastNewline = (str) => str.replace(/\s+$/, "");
+    const getIndent = () => "\n" + CONSTANTS.INDENT_STR.repeat(indentLevel);
+    const trimTrailing = (str) => str.replace(/\s+$/, "");
 
-    while (i < len) {
-        let char = code[i];
-        let nextChar = code[i + 1] || "";
+    while (i < code.length) {
+        const char = code[i];
+        const nextChar = code[i + 1] || "";
 
-        // 1. Handle Strings (Single OR Double quoted)
+        // String State
         if (state === "string") {
             output += char;
-            // Only exit string state if we hit the SAME quote char that started it
             if (char === quoteChar && code[i - 1] !== '\\') {
                 state = "normal";
                 quoteChar = "";
@@ -162,13 +188,14 @@ function formatSAIL(code) {
             i++; continue;
         }
 
+        // Comment States
         if (state === "comment_block") {
             output += char;
             if (char === '*' && nextChar === '/') {
                 output += '/';
                 state = "normal";
                 i++;
-                output += addIndent();
+                output += getIndent();
             }
             i++; continue;
         }
@@ -177,15 +204,15 @@ function formatSAIL(code) {
             output += char;
             if (char === '\n') {
                 state = "normal";
-                output += indentStr.repeat(indentLevel);
+                output += getIndent();
             }
             i++; continue;
         }
 
-        // 2. Detect Start of String (Single OR Double)
+        // Entering States
         if (char === '"' || char === "'") {
             state = "string";
-            quoteChar = char; // Remember which quote we used
+            quoteChar = char;
             output += char;
             i++; continue;
         }
@@ -197,20 +224,21 @@ function formatSAIL(code) {
             state = "comment_line"; output += "//"; i += 2; continue;
         }
 
+        // Structural Formatting
         if (char === '(' || char === '{') {
             output += char;
             indentLevel++;
-            output += addIndent();
+            output += getIndent();
             while (code[i + 1] && /\s/.test(code[i + 1])) i++;
         }
         else if (char === ')' || char === '}') {
             indentLevel = Math.max(0, indentLevel - 1);
-            output = trimLastNewline(output);
-            output += addIndent() + char;
+            output = trimTrailing(output);
+            output += getIndent() + char;
         }
         else if (char === ',') {
             output += char;
-            output += addIndent();
+            output += getIndent();
             while (code[i + 1] && /\s/.test(code[i + 1])) i++;
         }
         else if (char === ':') {
@@ -218,7 +246,7 @@ function formatSAIL(code) {
             if (code[i + 1] === ' ') i++;
         }
         else if (/\s/.test(char)) {
-            if (output.slice(-1) !== ' ' && output.slice(-1) !== '\n') {
+            if (!/[\s\n]/.test(output.slice(-1))) {
                 output += " ";
             }
         }
@@ -227,6 +255,7 @@ function formatSAIL(code) {
         }
         i++;
     }
+
     return output.trim();
 }
 
