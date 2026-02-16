@@ -1,8 +1,6 @@
 # Visual Studio Code Language Support for Appian Expressions
 An extension for Visual Studio Code that provides formatting and syntax highlighting for code constructed inside an Appian Expression Editor.
 
-The typical Appian Developer has 50 browser tabs and 5 browser windows open. Sometimes you just want to paste mock data or debug data inside of a scratchpad. This extension handles formatting that data as well as syntax highlighting for easy readability.
-
 | Light Mode | Dark Mode |
 | :---: | :---: |
 | ![Light Theme](images/light-theme.png) | ![Dark Theme](images/dark-theme.png) |
@@ -11,7 +9,7 @@ The typical Appian Developer has 50 browser tabs and 5 browser windows open. Som
 - Formats arrays, functions, etc.
 - Dark Mode and Light Mode
 - Syntax Highlighting for functions, expression rules, local variables, and more
-- Pillbox highlights around literal Appian Object references like Record Types (record types and site objects for now, more planned for future). UUIDs are still available but de-emphasized, and indexed fields/relationships/site pages/etc. are bolded for easy developer reference. 
+- Pillbox highlights around literal Appian Object references like Record Types (record types and site objects for now, more planned for future). UUIDs are still available but de-emphasized, and indexed fields/relationships/site pages/etc. are bolded for easy dev reference. 
 ![Pillbox Example](images/pillbox-example.png)
 
 ## Installing
