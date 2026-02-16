@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - "v*" # Trigger the workflow on git tag
+  workflow_dispatch: # Allows manual triggering from the Actions tab
 
 permissions:
   contents: write
