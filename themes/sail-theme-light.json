@@ -35,7 +35,10 @@
         },
         {
             "name": "Keywords",
-            "scope": "keyword",
+            "scope": [
+                "keyword",
+                "constant"
+            ],
             "settings": {
                 "foreground": "#1c5cc9"
             }

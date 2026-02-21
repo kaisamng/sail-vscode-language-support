@@ -64,7 +64,7 @@
             "patterns": [
                 {
                     "name": "variable.other.sail",
-                    "match": "\\b(ri|local|fv|rf|rv|pv|pp|pm|ac|tp|save|test)!([a-zA-Z0-9_]+)"
+                    "match": "\\b(ri|local|fv|rf|rv|pv|pp|pm|ac|tp|save|test)!([a-zA-Z0-9_]+(?:\\.[a-zA-Z0-9_]+)*)"
                 }
             ]
         },
