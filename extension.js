@@ -63,7 +63,7 @@ function activate(context) {
 
     // 2. Visualizer Logic
     let activeEditor = vscode.window.activeTextEditor;
-    let timeout = undefined;
+    let timeout;
 
     function triggerUpdateDecorations() {
         if (timeout) {
@@ -92,9 +92,9 @@ function activate(context) {
  */
         const mainRegEx = /('(?:recordType|site)!)((?:(?!').)+)'/g;
 
+        const doc = activeEditor.document;
         let match;
         while ((match = mainRegEx.exec(text))) {
-            const doc = activeEditor.document;
             const fullMatchStart = match.index;
             const fullMatchEnd = fullMatchStart + match[0].length;
 
@@ -129,7 +129,7 @@ function activate(context) {
                 if (subMatch[1]) {
                     // It's a UUID: Make it faint
                     faints.push({ range: subRange });
-                } else if (subMatch[2]) {
+                } else {
                     // It's readable text (domain, name, .fields., etc): Bold it
                     bolds.push({ range: subRange });
                 }
@@ -172,6 +172,10 @@ function formatSAIL(code) {
 
     const getIndent = () => "\n" + CONSTANTS.INDENT_STR.repeat(indentLevel);
     const trimTrailing = (str) => str.replace(/\s+$/, "");
+    const skipWhitespace = (pos) => {
+        while (code[pos + 1] && /\s/.test(code[pos + 1])) pos++;
+        return pos;
+    };
 
     while (i < code.length) {
         const char = code[i];
@@ -228,7 +232,7 @@ function formatSAIL(code) {
             output += char;
             indentLevel++;
             output += getIndent();
-            while (code[i + 1] && /\s/.test(code[i + 1])) i++;
+            i = skipWhitespace(i);
         }
         else if (char === ')' || char === '}') {
             indentLevel = Math.max(0, indentLevel - 1);
@@ -238,7 +242,7 @@ function formatSAIL(code) {
         else if (char === ',') {
             output += char;
             output += getIndent();
-            while (code[i + 1] && /\s/.test(code[i + 1])) i++;
+            i = skipWhitespace(i);
         }
         else if (char === ':') {
             output += char + " ";

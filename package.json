@@ -141,47 +141,8 @@
                             }
                         }
                     ],
-                    "[*Dark*]": [
-                        [
-                            {
-                                "scope": "comment",
-                                "settings": {
-                                    "foreground": "#6cb636"
-                                }
-                            },
-                            {
-                                "scope": "variable.parameter.function",
-                                "settings": {
-                                    "foreground": "#999999"
-                                }
-                            },
-                            {
-                                "scope": "keyword.operator",
-                                "settings": {
-                                    "foreground": "#3f3f3f"
-                                }
-                            },
-                            {
-                                "scope": "keyword",
-                                "settings": {
-                                    "foreground": "#1c5cc9"
-                                }
-                            },
-                            {
-                                "scope": [
-                                    "variable",
-                                    "variable.other"
-                                ],
-                                "settings": {
-                                    "foreground": "#50aee7"
-                                }
-                            },
-                            {
-                                "scope": "entity.name.function.rule",
-                                "settings": {
-                                    "foreground": "#f18742"
-                                }
-                            },
+                    "[*Dark*]": {
+                        "textMateRules": [
                             {
                                 "scope": [
                                     "entity.name.function.appian",
@@ -190,43 +151,9 @@
                                 "settings": {
                                     "foreground": "#255ac9"
                                 }
-                            },
-                            {
-                                "scope": [
-                                    "support.class",
-                                    "meta.class"
-                                ],
-                                "settings": {
-                                    "foreground": "#f18742"
-                                }
-                            },
-                            {
-                                "scope": "keyword.other.special-method",
-                                "settings": {
-                                    "foreground": "#61afef"
-                                }
-                            },
-                            {
-                                "scope": "string",
-                                "settings": {
-                                    "foreground": "#8c6dc3"
-                                }
-                            },
-                            {
-                                "scope": "constant.numeric",
-                                "settings": {
-                                    "foreground": "#1c5cc9"
-                                }
-                            },
-                            {
-                                "scope": "invalid.deprecated",
-                                "settings": {
-                                    "background": "#feb9b9",
-                                    "foreground": "#1c5cc9"
-                                }
                             }
                         ]
-                    ]
+                    }
                 }
             }
         }
