@@ -17,7 +17,8 @@
         "Themes"
     ],
     "activationEvents": [
-        "onLanguage:sail"
+        "onLanguage:sail",
+        "onStartupFinished"
     ],
     "main": "./extension.js",
     "contributes": {
@@ -53,6 +54,16 @@
                 "path": "./themes/sail-theme-dark.json"
             }
         ],
+        "configuration": {
+            "title": "SAIL",
+            "properties": {
+                "sail.autoDetect": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Automatically detect SAIL code in plaintext documents and switch the language to SAIL."
+                }
+            }
+        },
         "configurationDefaults": {
             "[sail]": {
                 "editor.semanticHighlighting.enabled": false,

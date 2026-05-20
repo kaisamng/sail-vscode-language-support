@@ -44,6 +44,49 @@ const boldDecorationType = vscode.window.createTextEditorDecorationType({
     fontWeight: 'bold'
 });
 
+// --- Auto Language Detection ---
+
+const SAIL_DOMAINS = ['a', 'ri', 'local', 'fv', 'cons', 'rule', 'type', 'fn', 'recordType', 'site'];
+const SAIL_TOKEN_REGEX = new RegExp(`(?:^|[^a-zA-Z0-9_])(${SAIL_DOMAINS.join('|')})!`, 'g');
+const AUTO_DETECT_DEBOUNCE_MS = 300;
+
+function looksLikeSail(text) {
+    if (!text || text.length < 4) return false;
+    const found = new Set();
+    let total = 0;
+    SAIL_TOKEN_REGEX.lastIndex = 0;
+    let match;
+    while ((match = SAIL_TOKEN_REGEX.exec(text))) {
+        found.add(match[1]);
+        total++;
+        // Confident if two distinct domain prefixes OR three+ total occurrences
+        if (found.size >= 2 || total >= 3) return true;
+    }
+    return false;
+}
+
+function isAutoDetectEnabled() {
+    return vscode.workspace.getConfiguration('sail').get('autoDetect', true);
+}
+
+function tryAutoDetectSail(document) {
+    if (!document || document.languageId !== 'plaintext') return;
+    if (!isAutoDetectEnabled()) return;
+    if (!looksLikeSail(document.getText())) return;
+    vscode.languages.setTextDocumentLanguage(document, 'sail');
+}
+
+const detectTimers = new WeakMap();
+function scheduleAutoDetect(document) {
+    if (!document || document.languageId !== 'plaintext') return;
+    const existing = detectTimers.get(document);
+    if (existing) clearTimeout(existing);
+    detectTimers.set(document, setTimeout(() => {
+        detectTimers.delete(document);
+        tryAutoDetectSail(document);
+    }, AUTO_DETECT_DEBOUNCE_MS));
+}
+
 /**
  * Main Extension Logic
  */
@@ -156,8 +199,13 @@ function activate(context) {
             if (activeEditor && event.document === activeEditor.document) {
                 triggerUpdateDecorations();
             }
-        })
+            scheduleAutoDetect(event.document);
+        }),
+        vscode.workspace.onDidOpenTextDocument(scheduleAutoDetect)
     );
+
+    // Check already-open documents on activation (e.g. an untitled buffer the user pasted into before the extension loaded)
+    vscode.workspace.textDocuments.forEach(tryAutoDetectSail);
 }
 
 /**
@@ -221,9 +269,11 @@ function formatSAIL(code) {
         }
 
         if (char === '/' && nextChar === '*') {
+            if (output.endsWith(' ')) output = trimTrailing(output) + getIndent();
             state = "comment_block"; output += "/*"; i += 2; continue;
         }
         if (char === '/' && nextChar === '/') {
+            if (output.endsWith(' ')) output = trimTrailing(output) + getIndent();
             state = "comment_line"; output += "//"; i += 2; continue;
         }
 
